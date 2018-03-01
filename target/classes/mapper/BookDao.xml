@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.damonto.ssmTest.dao.BookDao">
+
+   <select id="queryById" resultType="Book" >
+       SELECT *
+       FROM book
+       WHERE book_id = #{bookId}
+   </select>
+
+    <!--TODO 这里为什么不是 List-->
+    <select id="queryAll" resultType="Book">
+        SELECT *
+        FROM book
+        ORDER BY book_id
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <update id="reduceNumber" >
+        UPDATE book
+        SET book_number = book_number - 1
+        WHERE book_id = #{bookId} AND book_number > 0
+    </update>
+</mapper>
