@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.damonto.ssmTest.dao.RoleDao">
+
+    <insert id="save">
+        INSERT INTO auth_user_role(id, userId, roleId)
+        VALUE (#{id}, #{userId}, #{roleId})
+    </insert>
+
+    <insert id="saveAll">
+        INSERT INTO auth_user_role(id, userId, roleId)
+        VALUE
+        <foreach collection="collection" item="userRole" separator=",">
+            (#{userRole.id}, #{userRole.userId}, #{userRole.roleId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteById" >
+        DELETE FROM auth_user_role
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update">
+        UPDATE auth_user_role
+        SET userId=#{userId}, roleId=#{roleId}
+        WHERE id=#{id}
+    </update>
+
+    <select id="findById" resultType="UserRole">
+        SELECT * FROM auth_user_role
+        WHERE id=#{id}
+    </select>
+
+    <select id="findByUserId" resultType="UserRole">
+        SELECT * FROM auth_user_role
+        WHERE userId=#{userId}
+    </select>
+
+    <select id="findByPage" resultType="Role">
+        SELECT * FROM auth_user_role
+        LIMIT (#{page} - 1) * #{size}, #{size}
+    </select>
+
+</mapper>

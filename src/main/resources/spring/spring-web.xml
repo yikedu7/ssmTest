@@ -5,7 +5,7 @@
        xmlns:context="http://mybatis.org/schema/mybatis-spring"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
-    <context:scan base-package="cn.damonto.ssmTest.web" />
+    <context:scan base-package="cn.damonto.ssmTest.controller" />
 
     <!--配置 Spring MVC-->
     <mvc:annotation-driven />

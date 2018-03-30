@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.damonto.ssmTest.dao.UserDao">
+
+    <insert id="save">
+        INSERT INTO auth_user(id, name, pwd)
+        VALUE (#{id}, #{name}, #{pwd})
+    </insert>
+
+    <delete id="deleteById" >
+        DELETE FROM auth_user
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update">
+        UPDATE auth_user
+        SET name=#{name},pwd=#{pwd}
+        WHERE id=#{id}
+    </update>
+
+    <select id="findById" resultType="User">
+        SELECT * FROM auth_user
+        WHERE id=#{id}
+    </select>
+
+    <select id="findByNameAndPwd" resultType="User">
+        SELECT * FROM auth_user
+        WHERE name=#{name}, pwd=#{pwd}
+    </select>
+
+    <!-- mybatis foreach-->
+    <select id="findByIds" resultType="User">
+        SELECT * FROM auth_user
+        WHERE id IN
+        <foreach collection="collection" item="long" open="(" close=")" separator=",">
+          #{ids}
+        </foreach>
+    </select>
+
+    <select id="findByPage" resultType="User">
+        SELECT * FROM auth_user
+        LIMIT (#{page} - 1) * #{size}, #{size}
+    </select>
+
+</mapper>

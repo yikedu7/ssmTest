@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.damonto.ssmTest.dao.RoleDao">
+
+    <insert id="save">
+        INSERT INTO auth_role_function(id, roleId, functionId, status)
+        VALUE (#{id}, #{roleId}, #{functionId}, #{status})
+    </insert>
+
+    <insert id="save">
+        INSERT INTO auth_role_function(id, roleId, functionId, status)
+        VALUE
+        <foreach collection="collection" item="roleFunction" separator=",">
+            (#{roleFunction.id}, #{roleFunction.roleId}, #{roleFunction.functionId}, #{roleFunction.status})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByRoleId" >
+        DELETE FROM auth_role_function
+        WHERE roleId = #{roleId}
+    </delete>
+
+    <update id="update">
+        UPDATE auth_role_function
+        SET roleId=#{roleId}, functionId = #{functionId}, status = #{status}
+        WHERE id=#{id}
+    </update>
+
+    <select id="findById" resultType="RoleFunction">
+        SELECT * FROM auth_role_function
+        WHERE id=#{id}
+    </select>
+
+    <select id="findByRoleId" resultType="RoleFunction">
+        SELECT * FROM auth_role_function
+        WHERE roleId=#{roleId}
+    </select>
+
+    <!-- mybatis foreach-->
+    <select id="findByPage" resultType="RoleFunction">
+        SELECT * FROM auth_role_function
+        LIMIT (#{page} - 1) * #{size}, #{size}
+    </select>
+
+</mapper>
